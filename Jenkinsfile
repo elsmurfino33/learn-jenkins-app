@@ -57,6 +57,19 @@ pipeline {
                 '''
             }
         }
+        stage('Popup de Parabéns') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        // Em sistemas Unix, por exemplo, usando o zenity para exibir um diálogo gráfico
+                        sh 'zenity --info --text="Parabéns"'
+                    } else {
+                        // Em sistemas Windows, usando PowerShell para abrir uma MessageBox
+                        bat 'powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show(\'Parabéns\')"'
+                    }
+                }
+            }
+        }
     }
 
     post {
